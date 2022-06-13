@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Why use web components?</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Why use web components?</h1>
+
+		<!-- This is clear -->
+		<loading-icon></loading-icon>
+
+		<!-- This is clunky -->
+		<div class="visually-hidden" role="status">
+			Waiting to load...
+		</div>
+		<div class="loading-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+
+
+		<!-- This is the wrong class -->
+		<div class="loading-rings">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+		<!-- This one is missing a div -->
+		<div class="loading-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+
+
+
+		<!--
+			No changes needed
+			The component handles the HTML for you
+		-->
+		<loading-icon></loading-icon>
+
+		<!-- This is the only change needed -->
+		<script src="loading-icon.v2.js"></script>
+
+
+
+		<style>
+			.loading-ring {
+				/* Some conflicting styles */
+			}
+		</style>
+
+	</body>
+</html>

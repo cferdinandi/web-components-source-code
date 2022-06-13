@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Parts</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+
+			greeting-message::part(btn) {
+				background-color: #f7272f;
+				border-color: #f7272f;
+				border-radius: 0;
+			}
+
+			greeting-message[name="Ursula"]::part(btn) {
+				background-color: rebeccapurple;
+				border-color: rebeccapurple;
+				border-radius: 1em;
+			}
+
+			greeting-message::part(message) {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Parts</h1>
+
+
+		<greeting-message></greeting-message>
+		<greeting-message name="Ursula"></greeting-message>
+
+
+		<script>
+			// Extend the HTMLElement class to create the web component
+			class GreetingMessage extends HTMLElement {
+
+				/**
+				 * The class constructor object
+				 */
+				constructor () {
+
+					// Always call super first in constructor
+					super();
+
+					// Creates a shadow root
+					this.root = this.attachShadow({mode: 'closed'});
+
+					// Render HTML
+					this.root.innerHTML =
+						`<style>
+							button {
+								background-color: #0088cc;
+								border: 1px solid #0088cc;
+								border-radius: 0.25em;
+								color: #ffffff;
+								font-size: 1.5em;
+								padding: 0.5em 1em;
+							}
+						</style>
+						<p>
+							<button part="btn"><slot name="emoji"></slot> <slot>Hi there!</slot></button>
+						</p>
+						<div class="message" aria-live="polite" part="message"></div>`;
+
+				}
+
+				clickHandler (event) {
+
+					// Get the host component
+					let host = event.target.getRootNode().host;
+
+					// Get the message element
+					let target = host.root.querySelector('.message');
+					if (!target) return;
+
+					// Inject the message into the UI
+					let name = host.getAttribute('name');
+					target.textContent = `Hi there, ${name ? name : 'friend'}! Hope you're having a great day!`;
+
+					// Clear the message after 5 seconds
+					setTimeout(function () {
+						target.textContent = '';
+					}, 5000);
+
+				}
+
+				/**
+				 * Runs each time the element is appended to or moved in the DOM
+				 */
+				connectedCallback () {
+
+					// Attach a click event listener to the button
+					let btn = this.root.querySelector('button');
+					if (!btn) return;
+					btn.addEventListener('click', this.clickHandler);
+
+				}
+
+				/**
+				 * Runs when the element is removed from the DOM
+				 */
+				disconnectedCallback () {
+
+					// Remove the click event listener from the button
+					let btn = this.root.querySelector('button');
+					if (!btn) return;
+					btn.removeEventListener('click', this.clickHandler);
+
+				}
+
+				/**
+				 * Create a list of attributes to observe
+				 */
+				static get observedAttributes () {
+					return ['logout'];
+				}
+
+				/**
+				 * Runs when the value of an attribute is changed on the component
+				 * @param  {String} name     The attribute name
+				 * @param  {String} oldValue The old attribute value
+				 * @param  {String} newValue The new attribute value
+				 */
+				attributeChangedCallback (name, oldValue, newValue) {
+
+					// Remove the button
+					let btn = this.root.querySelector('button');
+					if (btn) {
+						btn.removeEventListener('click', this.clickHandler);
+						btn.remove();
+					}
+
+					// Get the message element
+					let target = this.root.querySelector('.message');
+					if (target) {
+
+						// Inject the message into the UI
+						let name = this.getAttribute('name');
+						target.textContent = `Bye, ${name ? name : 'friend'}! See you next time.`;
+
+					}
+
+				}
+
+			}
+
+			// Define the new web component
+			if ('customElements' in window) {
+				customElements.define('greeting-message', GreetingMessage);
+			}
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Traditional Components</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			body {
+				margin: 0 auto;
+				max-width: 40em;
+				width: 88%;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Traditional Components</h1>
+
+		<style>
+			@media (prefers-reduced-motion: no-preference) {
+
+				.loading-ring {
+					display: inline-block;
+					position: relative;
+					width: 5em;
+					height: 5em;
+				}
+
+				.loading-ring div {
+					box-sizing: border-box;
+					display: block;
+					position: absolute;
+					width: 4em;
+					height: 4em;
+					margin: 0.5em;
+					border: 0.5em solid #000000;
+					border-radius: 50%;
+					animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+					border-color: #000000 transparent transparent transparent;
+				}
+
+				.loading-ring div:nth-child(1) {
+					animation-delay: -0.45s;
+				}
+
+				.loading-ring div:nth-child(2) {
+					animation-delay: -0.3s;
+				}
+
+				.loading-ring div:nth-child(3) {
+					animation-delay: -0.15s;
+				}
+
+				@keyframes spin {
+					0% {
+						transform: rotate(0deg);
+					}
+					100% {
+						transform: rotate(360deg);
+					}
+				}
+
+				/**
+				 * Visually hide an element, but leave it available for screen readers
+				 * @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+				 * @link http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+				 * @link https://github.com/h5bp/main.css/issues/12#issuecomment-321106995
+				 */
+				.visually-hidden {
+					border: 0;
+					clip: rect(0 0 0 0);
+					height: 1px;
+					overflow: hidden;
+					padding: 0;
+					position: absolute;
+					white-space: nowrap;
+					width: 1px;
+				}
+
+			}
+		</style>
+
+		<div class="visually-hidden" role="status">
+			Waiting to load...
+		</div>
+
+		<div class="loading-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+	</body>
+</html>
