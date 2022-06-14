@@ -32,9 +32,9 @@
 
 			/*button {
 				pointer-events: none;
-			}*/
+			}
 
-			/*.message {
+			.message {
 				display: none;
 			}*/
 		</style>
@@ -70,6 +70,10 @@
 
 				}
 
+				/**
+				 * Handle click events
+				 * @param  {Event} event The event object
+				 */
 				clickHandler (event) {
 
 					// Get the host component
@@ -157,8 +161,8 @@
 
 
 			// Disable ARIA live region
-			// let message = document.querySelector('.message');
-			// message.removeAttribute('aria-live');
+			let message = document.querySelector('.message');
+			message.removeAttribute('aria-live');
 		</script>
 
 	</body>

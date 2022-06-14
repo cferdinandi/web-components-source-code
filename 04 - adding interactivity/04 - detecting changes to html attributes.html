@@ -45,6 +45,10 @@
 
 				}
 
+				/**
+				 * Handle click events
+				 * @param  {Event} event The event object
+				 */
 				clickHandler (event) {
 
 					// Get the host component
@@ -104,7 +108,7 @@
 				 */
 				attributeChangedCallback (name, oldValue, newValue) {
 
-					console.log('changed', name, oldValue, newValue, this);
+					// console.log('changed', name, oldValue, newValue, this);
 
 					// Remove the button
 					let btn = this.querySelector('button');
@@ -139,7 +143,7 @@
 			greeting.setAttribute('hello', 'you');
 
 			// logs "changed", "logout", null, "true"
-			greeting.setAttribute('logout', true);
+			// greeting.setAttribute('logout', true);
 		</script>
 
 	</body>
